@@ -1,8 +1,9 @@
 from discord.ext import commands
 from discord import app_commands
 from datetime import datetime
-from colors import *
+from colorama import Fore
 from id import *
+import colors
 import data
 import log_saves
 
@@ -53,22 +54,22 @@ async def delete_non_decimal_numbers(message):
             old_message_number = numbers[1]
             try:
                 if int(old_message_number) == int(message_number) - 1:
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {color_counting}decimal count set to {color_variables}{message_number}")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}decimal count set to {colors.variables}{message_number}")
                     log_saves.save_log(f'decimal count set to "{message_number}"')
 
                     data.data = data.load_data()
                     data.add_counting(str(message.author.id), "decimal")
                     data.save_data(data.data)
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {color_counting}counting stats saved")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}counting stats saved")
                 else:
                     await message.delete()
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{color_counting}wrong decimal number was counted {color_variables}({message_number})")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong decimal number was counted {colors.variables}({message_number})")
             except ValueError:
                 await message.delete()
-                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{color_counting}message didn't start with a decimal number {color_variables}({message.content})")
+                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a decimal number {colors.variables}({message.content})")
         else:
             await message.delete()
-            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {color_counting} same person counted twice in {color_variables}{message.channel}")
+            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
 
 
 async def delete_non_binary_numbers(message):
@@ -81,19 +82,19 @@ async def delete_non_binary_numbers(message):
                 message_number_int = int(message_number, 2)
                 old_message_number_int = int(old_message_number, 2)
                 if old_message_number_int == message_number_int - 1:
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{color_counting}binary count set to {color_variables}{message_number}")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}binary count set to {colors.variables}{message_number}")
                     log_saves.save_log(f'binary count set to "{message_number}"')
 
                     data.data = data.load_data()
                     data.add_counting(str(message.author.id), "binary")
                     data.save_data(data.data)
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {color_counting}counting stats saved")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}counting stats saved")
                 else:
                     await message.delete()
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{color_counting}wrong binary number was counted {color_variables}({message_number})")
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong binary number was counted {colors.variables}({message_number})")
             except ValueError:
                 await message.delete()
-                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{color_counting}message didn't start with a binary number {color_variables}({message.content})")
+                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a binary number {colors.variables}({message.content})")
         else:
             await message.delete()
-            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {color_counting} same person counted twice in {color_variables}{message.channel}")
+            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
