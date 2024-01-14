@@ -37,7 +37,8 @@ class Bot(commands.Bot):
             print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.variables}{message.author} {colors.messages}sent {colors.variables}{message.content} {colors.messages}in {colors.variables}{message.channel}")
         await counting.delete_non_decimal_numbers(message)
         await counting.delete_non_binary_numbers(message)
-        log_saves.save_log(entry=f'"{message.author}" sent "{message.content}" in "{message.channel}"\n')
+        if not message.content == "":
+            log_saves.save_log(entry=f'"{message.author}" sent "{message.content}" in "{message.channel}"\n')
 
 
     async def on_voice_state_update(self, member, before, after):
