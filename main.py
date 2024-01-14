@@ -20,7 +20,7 @@ class Bot(commands.Bot):
     async def on_ready(self):
         print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.bot}Bot is ready")        
         synced = await bot.tree.sync()
-        print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.variables}{str(len(synced))} {bot}commands synced")
+        print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.variables}{str(len(synced))} {colors.bot}commands synced")
 
 
     async def on_member_join(self, member):
@@ -66,6 +66,13 @@ class Bot(commands.Bot):
     async def on_raw_message_edit(self, payload):
         print(RawMessageUpdateEvent.cached_message)
 
+
+    async def on_guild_role_create(self, role):
+        await log.role_create(self, role)
+
+
+    async def on_guild_role_delete(self, role):
+        await log.role_delete(self, role)
 
 bot = Bot()
 

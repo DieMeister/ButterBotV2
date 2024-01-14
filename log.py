@@ -79,3 +79,16 @@ async def member_leave(bot, payload):
     await channel.send(f"<@{member.id}> left the server")
     print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.variables}{member.name} {colors.log}left the server")
     log_saves.save_log(f'"{member.id}" left the server')
+
+
+async def role_create(bot, role):
+    channel = bot.get_channel(channel_log_roles)
+    await channel.send(f'<@&{role.id}> was created')
+    print(f'{Fore.GREEN}{datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC:")} {colors.variables}{role.name} {colors.log}was created')
+    log_saves.save_log(entry=f'"{role.name}" was created')
+
+async def role_delete(bot, role):
+    channel = bot.get_channel(channel_log_roles)
+    await channel.send(f'"{role.name}" was deleted')
+    print(f'{Fore.GREEN}{datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC:")} {colors.variables}{role.name} {colors.log}was deleted')
+    log_saves.save_log(entry=f'"{role.name}" was deleted')
