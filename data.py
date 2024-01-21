@@ -5,14 +5,14 @@ data = {}
 
 def add_counting(author, system):
     try:
-        data["counting"]["total"][author] += 1
+        data["counting"]["total"]["individual_count"][author] += 1
     except KeyError:
-        data["counting"]["total"][author] = 1
+        data["counting"]["total"]["individual_count"][author] = 1
     
     try:
-        data["counting"][system][author] += 1
+        data["counting"][system]["individual_count"][author] += 1
     except KeyError:
-        data["counting"][system][author] = 1
+        data["counting"][system]["individual_count"][author] = 1
 
 
 def load_data():
