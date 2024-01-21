@@ -46,7 +46,7 @@ async def get_last_number(channel):
     return(count)
 
 
-async def delete_non_decimal_numbers(message):
+async def decimal(message):
     if message.channel.id == channel_normal and message.author.id != bot_id:
         if not await check_if_same_author(message):
             numbers = await extract_number_from_message(message)
@@ -72,7 +72,7 @@ async def delete_non_decimal_numbers(message):
             print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
 
 
-async def delete_non_binary_numbers(message):
+async def binary(message):
     if message.channel.id == channel_binär and message.author.id != bot_id:
         if not await check_if_same_author(message):
             numbers = await extract_number_from_message(message)
