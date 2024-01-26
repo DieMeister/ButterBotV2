@@ -77,6 +77,7 @@ async def decimal(bot, message):
             print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
 
 
+
 async def binary(bot, message):
     if message.channel.id == channel_binär and message.author.id != bot_id:
         if not await check_if_same_author(message):
