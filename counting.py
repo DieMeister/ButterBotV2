@@ -44,35 +44,43 @@ async def get_last_number(channel):
     return(count)
 
 
-async def decimal(bot, message):
+async def counting(bot, message):
+    counting_channel = False
+    base = 0
+    system = ""    
     if message.channel.id == channel_normal and message.author.id != bot_id:
-        if not await check_if_same_author(message):
-            numbers = await extract_number_from_message(message)
-            message_number = numbers[0]
-            old_message_number = numbers[1]
-            try:
-                if int(old_message_number) == int(message_number) - 1:
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}decimal count set to {colors.variables}{message_number}")
-                    log_saves.save_log(f'decimal count set to "{message_number}"')
+        base = 10
+        system = "decimal"
+        counting_channel = True
+    elif message.channel.id == channel_binär and message.author.id != bot_id:
+        base = 2
+        system = "binary"
+        counting_channel = True
 
-                    data.data = data.load_data()
+    if not await check_if_same_author(message) and counting_channel:
+        numbers = await extract_number_from_message(message)
+        message_number = numbers[0]
+        old_message_number = numbers[1]
+        try:
+            if int(old_message_number, base) == int(message_number, base) - 1:
+                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}{system} count set to {colors.variables}{message_number}")
+                log_saves.save_log(f'{system} count set to "{message_number}"')
 
-                    author = str(message.author.id)
+                data.data = data.load_data()
 
-                    data.add_counting(message, author, "decimal")
-                    data.add_counting(message, author, "total")
+                author = str(message.author.id)
 
-                    data.update_leaderboard(message, author, "decimal")
-                    data.update_leaderboard(message, author, "total")
+                data.add_counting(message, author, system)
+                data.add_counting(message, author, "total")
 
-                    data.save_data(data.data)
-                else:
-                    await message.delete()
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong decimal number was counted {colors.variables}({message_number})")
-            except ValueError:
+                data.update_leaderboard(message, author, "decimal")
+                data.update_leaderboard(message, author, system)
+
+                data.save_data(data.data)
+            else:
                 await message.delete()
-                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a decimal number {colors.variables}({message.content})")
-        else:
+                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong {system} number was counted {colors.variables}({message_number})")
+        except ValueError:
             await message.delete()
             print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
 
