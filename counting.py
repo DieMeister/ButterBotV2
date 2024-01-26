@@ -82,7 +82,40 @@ async def counting(bot, message):
                 print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong {system} number was counted {colors.variables}({message_number})")
         except ValueError:
             await message.delete()
-            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a {system} number {colors.variables}({message.content})")
-    else:
-        await message.delete()
-        print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
+            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
+
+
+
+async def binary(bot, message):
+    if message.channel.id == channel_binär and message.author.id != bot_id:
+        if not await check_if_same_author(message):
+            numbers = await extract_number_from_message(message)
+            message_number = numbers[0]
+            old_message_number = numbers[1]
+            try:
+                message_number_int = int(message_number, 2)
+                old_message_number_int = int(old_message_number, 2)
+                if old_message_number_int == message_number_int - 1:
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}binary count set to {colors.variables}{message_number}")
+                    log_saves.save_log(f'binary count set to "{message_number}"')
+
+                    data.data = data.load_data()
+
+                    author = str(message.author.id)
+
+                    data.add_counting(message, author, "binary")
+                    data.add_counting(message, author, "total")
+
+                    data.update_leaderboard(message, author, "binary")
+                    data.update_leaderboard(message, author, "total")
+
+                    data.save_data(data.data)
+                else:
+                    await message.delete()
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong binary number was counted {colors.variables}({message_number})")
+            except ValueError:
+                await message.delete()
+                print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a binary number {colors.variables}({message.content})")
+        else:
+            await message.delete()
+            print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting} same person counted twice in {colors.variables}{message.channel}")
