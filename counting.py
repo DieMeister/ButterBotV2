@@ -22,14 +22,18 @@ async def counting(message):
             base = 2
             system = "binary"
             counting_channel = True
+        elif message.channel.id == channel_hex:
+            base = 16
+            system = "hexadecimal"
+            counting_channel = True
 
     if counting_channel:
         if message.author.id != data.data["counting"][system]["last_count"]["member"]:
             message_split = message.content.split(" ")
             number = message_split[0]
-            number = int(number, base)
 
             try:
+                number = int(number, base)
                 if data.data["counting"][system]["last_count"]["number"] == number - 1:
                     print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.counting}{system} count set to {colors.variables}{number}")
                     log_saves.save_log(f'{system} count set to "{number}"')
@@ -46,8 +50,8 @@ async def counting(message):
                     data.save_data(data.data)
                 else:
                     await message.delete()
-                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong {colors.variables}{system} {colors.counting}number was counted {colors.variables}({bin(number)})")
-                    log_saves.save_log(f'wrong "{system}" number was counted ("{bin(number)}")')
+                    print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}wrong {colors.variables}{system} {colors.counting}number was counted {colors.variables}({number})")
+                    log_saves.save_log(f'wrong "{system}" number was counted ("{number}")')
             except ValueError:
                 await message.delete()
                 print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC: ')}{colors.counting}message didn't start with a {system} number {colors.variables}({message.content})")
