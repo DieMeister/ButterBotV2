@@ -19,6 +19,14 @@
             },
             "leaderboard": [],
             "individual_count": {}
+        },
+        "hexadecimal": {
+            "last_count": {
+                "number": 0,
+                "member": 0
+            },
+            "leaderboard": [],
+            "individual_count": {}
         }
     }
 }
