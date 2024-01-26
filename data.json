@@ -1,31 +1,16 @@
 {
     "counting": {
         "total": {
-            "leaderboard": {
-                "first": [],
-                "second": [],
-                "third": []
-            },
-            "individual_count":{
-            }
+            "leaderboard": [],
+            "individual_count": {}
         },
         "decimal": {
-            "leaderboard": {
-                "first": [],
-                "second": [],
-                "third": []
-            },
-            "individual_count":{
-            }
+            "leaderboard": [],
+            "individual_count": {}
         },
         "binary": {
-            "leaderboard": {
-                "first": [],
-                "second": [],
-                "third": []
-            },
-            "individual_count":{
-            }
+            "leaderboard": [],
+            "individual_count": {}
         }
     }
 }
