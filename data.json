@@ -5,10 +5,18 @@
             "individual_count": {}
         },
         "decimal": {
+            "last_count": {
+                "number": 0,
+                "member": 0
+            },
             "leaderboard": [],
             "individual_count": {}
         },
         "binary": {
+            "last_count": {
+                "number": 0,
+                "member": 0
+            },
             "leaderboard": [],
             "individual_count": {}
         }
