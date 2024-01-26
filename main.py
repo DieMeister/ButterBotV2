@@ -35,9 +35,10 @@ class Bot(commands.Bot):
     async def on_message(self, message):
         if not message.content == "":
             print(f"{Fore.GREEN}{datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC:')} {colors.variables}{message.author} {colors.messages}sent {colors.variables}{message.content} {colors.messages}in {colors.variables}{message.channel}")
+        await counting.decimal(self, message)
+        await counting.binary(self, message)
+        if not message.content == "":
             log_saves.save_log(entry=f'"{message.author}" sent "{message.content}" in "{message.channel}"\n')
-        await counting.decimal(message)
-        await counting.binary(message)
 
 
     async def on_voice_state_update(self, member, before, after):

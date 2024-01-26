@@ -1,7 +1,16 @@
 {
     "counting": {
-        "total": {},
-        "decimal": {},
-        "binary": {}
+        "total": {
+            "leaderboard": [],
+            "individual_count": {}
+        },
+        "decimal": {
+            "leaderboard": [],
+            "individual_count": {}
+        },
+        "binary": {
+            "leaderboard": [],
+            "individual_count": {}
+        }
     }
 }
